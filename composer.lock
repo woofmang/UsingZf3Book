@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c0cd2c7f6c3a250430f94e86eaf392f",
+    "content-hash": "f0e22aac75ca12dcc1f1db9785e8e99b",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -147,6 +147,59 @@
                 "zf2"
             ],
             "time": "2016-02-28T15:02:34+00:00"
+        },
+        {
+            "name": "zendframework/zend-barcode",
+            "version": "2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-barcode.git",
+                "reference": "9201afb8a1356f149ddb955a3c9e017f47c0dd6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-barcode/zipball/9201afb8a1356f149ddb955a3c9e017f47c0dd6c",
+                "reference": "9201afb8a1356f149ddb955a3c9e017f47c0dd6c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3",
+                "zendframework/zend-stdlib": "^2.7 || ^3.0",
+                "zendframework/zend-validator": "^2.6"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "1.7.*",
+                "phpunit/phpunit": "~4.0",
+                "zendframework/zend-config": "^2.6",
+                "zendframework/zendpdf": "*"
+            },
+            "suggest": {
+                "zendframework/zendpdf": "ZendPdf component"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev",
+                    "dev-develop": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Barcode\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "provides a generic way to generate barcodes",
+            "homepage": "https://github.com/zendframework/zend-barcode",
+            "keywords": [
+                "barcode",
+                "zf2"
+            ],
+            "time": "2016-02-17T21:15:38+00:00"
         },
         {
             "name": "zendframework/zend-code",

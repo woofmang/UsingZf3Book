@@ -8,6 +8,7 @@
 namespace Application;
 
 use Zend\Router\Http\Literal;
+use Zend\Router\Http\Regex;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -42,6 +43,31 @@ return [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'getJson',
                     ],
+                ],
+            ],
+            'barcode' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/barcode[/:type/:label]',
+                    'constraints' => [
+                        'type' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'label' => '[a-zA-Z0-9_-]*'
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action' => 'barcode',
+                    ],
+                ],
+            ],
+            'doc' => [
+                'type' => Regex::class,
+                'options' => [
+                    'regex'    => '/doc(?<page>\/[a-zA-Z0-9_\-]+)\.html',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'doc',
+                    ],
+                    'spec'=>'/doc/%page%.html'
                 ],
             ],
             'download' => [
