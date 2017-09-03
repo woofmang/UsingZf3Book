@@ -11,6 +11,7 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Regex;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Application\Route\StaticRoute;
 
 return [
     'router' => [
@@ -32,6 +33,16 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'about',
+                    ],
+                ],
+            ],
+            'partial-demo' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/partial-demo',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'partialDemo',
                     ],
                 ],
             ],
@@ -68,6 +79,18 @@ return [
                         'action'     => 'doc',
                     ],
                     'spec'=>'/doc/%page%.html'
+                ],
+            ],
+            'static' => [
+                'type' => StaticRoute::class,
+                'options' => [
+                    'dir_name'         => __DIR__ . '/../view',
+                    'template_prefix'  => 'application/index/static',
+                    'filename_pattern' => '/[a-z0-9_\-]+/',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'static',
+                    ],
                 ],
             ],
             'download' => [
