@@ -8,8 +8,8 @@
 namespace Application;
 
 use Zend\Router\Http\Literal;
-use Zend\Router\Http\Regex;
 use Zend\Router\Http\Segment;
+use Zend\Router\Http\Regex;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Application\Route\StaticRoute;
 
@@ -26,6 +26,16 @@ return [
                     ],
                 ],
             ],
+            'application' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/application[/:action]',
+                    'defaults' => [
+                        'controller'    => Controller\IndexController::class,
+                        'action'        => 'index',
+                    ],
+                ],
+            ],
             'about' => [
                 'type' => Literal::class,
                 'options' => [
@@ -36,37 +46,13 @@ return [
                     ],
                 ],
             ],
-            'partial-demo' => [
-                'type' => Literal::class,
+            'download' => [
+                'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/partial-demo',
+                    'route'    => '/download[/:action]',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'partialDemo',
-                    ],
-                ],
-            ],
-            'getJson' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/getJson',
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'getJson',
-                    ],
-                ],
-            ],
-            'barcode' => [
-                'type' => Segment::class,
-                'options' => [
-                    'route' => '/barcode[/:type/:label]',
-                    'constraints' => [
-                        'type' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'label' => '[a-zA-Z0-9_-]*'
-                    ],
-                    'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action' => 'barcode',
+                        'controller'    => Controller\DownloadController::class,
+                        'action'        => 'index',
                     ],
                 ],
             ],
@@ -90,35 +76,41 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'static',
-                    ],
+                    ],                    
                 ],
             ],
-            'download' => [
-                'type'    => Segment::class,
+            'barcode' => [
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/download[/:action]',
-                    'defaults' => [
-                        'controller'    => Controller\DownloadController::class,
-                        'action'        => 'index',
+                    'route' => '/barcode[/:type/:label]',
+                    'constraints' => [
+                        'type' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'label' => '[a-zA-Z0-9_-]*'
                     ],
-                ],
-            ],
-            'application' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/application[/:action]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'action' => 'barcode',
                     ],
                 ],
-            ],
+            ]             
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
-            Controller\DownloadController::class => InvokableFactory::class
+            Controller\DownloadController::class => InvokableFactory::class,
+        ],
+    ],
+    // The following registers our custom view 
+    // helper classes in view plugin manager.
+    'view_helpers' => [
+        'factories' => [
+            View\Helper\Menu::class => InvokableFactory::class,
+            View\Helper\Breadcrumbs::class => InvokableFactory::class,
+        ],
+        'aliases' => [
+            'mainMenu' => View\Helper\Menu::class,
+            'pageBreadcrumbs' => View\Helper\Breadcrumbs::class,
         ],
     ],
     'view_manager' => [
@@ -135,9 +127,6 @@ return [
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
-        ],
-        'strategies' => [
-            'ViewJsonStrategy',
         ],
     ],
 ];
